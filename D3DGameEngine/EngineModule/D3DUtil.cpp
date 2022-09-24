@@ -75,6 +75,22 @@ namespace d3d
 
 	void Destroy()
 	{
+		if (gDevice)
+		{
+			gDevice->Release();
+			gDevice = nullptr;
+		}
+	}
+
+	D3DMATERIAL9 InitMtrl(D3DXCOLOR ambient, D3DXCOLOR diffuse, D3DXCOLOR specular, D3DXCOLOR emissive, const float power)
+	{
+		D3DMATERIAL9 mtrl;
+		mtrl.Ambient = ambient;
+		mtrl.Diffuse = diffuse;
+		mtrl.Specular = specular;
+		mtrl.Emissive = emissive;
+		mtrl.Power = power;
+		return mtrl;
 	}
 
 }

@@ -8,7 +8,7 @@ public:
 	EnginePlayer();
 
 public:
-	void Init();
+	bool Init();
 
 	// 윈도우 이벤트 처리.
 	void OnTick();

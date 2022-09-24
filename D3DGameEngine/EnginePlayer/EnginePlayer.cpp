@@ -7,15 +7,23 @@ EnginePlayer::EnginePlayer()
 {
 }
 
-void EnginePlayer::Init()
+bool EnginePlayer::Init()
 {
 	// 이미 초기화 되었다면 진행하지 않는다.
 	if (mbInit)
 	{
-		return;
+		::MessageBox(nullptr, "EnginePlayer - Init() : Already Init", "Error", MB_ICONEXCLAMATION | MB_OK);
+		return false;
+	}
+
+	if (!mEngine.Init(wndplayer::gInstance, wndplayer::gWndHandler))
+	{
+		::MessageBox(nullptr, "EnginePlayer - Init() : GameEngine Init Failed", "Error", MB_ICONEXCLAMATION | MB_OK);
+		return false;
 	}
 
 	mbInit = true;
+	return true;
 }
 
 void EnginePlayer::OnTick()
@@ -27,13 +35,13 @@ void EnginePlayer::OnTick()
 	}
 
 	// 성능 측정 시작.
-	//mEngine.GetTimer().BeginTimer();
+	mEngine.GetTimer().BeginTimer();
 
 	// Initialization
 	start();
 
 	// Input Event
-	//mEngine.GetInput().Update();
+	mEngine.GetInput().Update();
 
 	// GameLogic
 	update();
@@ -46,7 +54,7 @@ void EnginePlayer::OnTick()
 	postRender();
 
 	// 성능 측정 종료.
-	//mEngine.GetTimer().EndTimer();
+	mEngine.GetTimer().EndTimer();
 }
 
 void EnginePlayer::loadScene()
