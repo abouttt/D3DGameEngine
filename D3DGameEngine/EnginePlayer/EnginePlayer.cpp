@@ -75,16 +75,36 @@ void EnginePlayer::lateUpdate()
 
 void EnginePlayer::preRender()
 {
+	// 배경 지우기 / 렌더 시작.
+	if (d3d::gDevice)
+	{
+		d3d::gDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, d3d::BLACK, 1.f, 0);
+		d3d::gDevice->BeginScene();
+	}
 }
 
 void EnginePlayer::render()
 {
+	if (d3d::gDevice)
+	{
+
+	}
 }
 
 void EnginePlayer::renderGUI()
 {
+	if (d3d::gDevice)
+	{
+
+	}
 }
 
 void EnginePlayer::postRender()
 {
+	// 렌더 마무리 / 백 버퍼 스왑.
+	if (d3d::gDevice)
+	{
+		d3d::gDevice->EndScene();
+		d3d::gDevice->Present(NULL, NULL, NULL, NULL);
+	}
 }
