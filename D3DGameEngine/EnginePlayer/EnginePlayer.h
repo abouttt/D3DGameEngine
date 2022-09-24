@@ -24,6 +24,9 @@ private: //루프 함수.
 	void postRender();
 
 private:
+	void updateCameraTransform();
+
+private:
 	bool mbInit;
 
 	engine::GameEngine mEngine;

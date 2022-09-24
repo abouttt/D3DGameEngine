@@ -4,7 +4,7 @@
 
 namespace engine
 {
-	struct TransformPart
+	class TransformPart
 	{
 	public:
 		TransformPart(

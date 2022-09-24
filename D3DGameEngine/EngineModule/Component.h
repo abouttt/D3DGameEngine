@@ -18,8 +18,8 @@ namespace engine
 		virtual ~Component();
 
 	public:
-		GameEngine* GetGameEngine();
-		const GameEngine* GetGameEngine() const;
+		GameEngine* GetEngine();
+		const GameEngine* GetEngine() const;
 
 		GameObject* GetGameObject();
 		const GameObject* GetGameObject() const;
@@ -28,7 +28,7 @@ namespace engine
 		const Transform* GetTransform() const;
 
 	private:
-		GameEngine* mGameEnginePtr;
+		GameEngine* mEnginePtr;
 		GameObject* mGameObjectPtr;
 		Transform* mTransformPtr;
 	};

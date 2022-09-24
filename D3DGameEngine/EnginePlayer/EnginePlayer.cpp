@@ -1,11 +1,14 @@
 #include "EnginePlayer.h"
 #include "WindowsPlayer.h"
 
+#include "Camera.h"
+#include "GameObject.h"
+#include "Transform.h"
+
 EnginePlayer::EnginePlayer()
     : mbInit(false)
 	, mEngine()
-{
-}
+{}
 
 bool EnginePlayer::Init()
 {
@@ -21,6 +24,8 @@ bool EnginePlayer::Init()
 		::MessageBox(nullptr, "EnginePlayer - Init() : GameEngine Init Failed", "Error", MB_ICONEXCLAMATION | MB_OK);
 		return false;
 	}
+
+	loadScene();
 
 	mbInit = true;
 	return true;
@@ -59,6 +64,8 @@ void EnginePlayer::OnTick()
 
 void EnginePlayer::loadScene()
 {
+	auto camera = mEngine.CreateCamera("MainCamera");
+	camera->GetTransform()->SetPosition(D3DXVECTOR3(0.f, 0.f, 0.f));
 }
 
 void EnginePlayer::start()
@@ -75,6 +82,9 @@ void EnginePlayer::lateUpdate()
 
 void EnginePlayer::preRender()
 {
+	// 카메라.
+	updateCameraTransform();
+
 	// 배경 지우기 / 렌더 시작.
 	if (d3d::gDevice)
 	{
@@ -107,4 +117,17 @@ void EnginePlayer::postRender()
 		d3d::gDevice->EndScene();
 		d3d::gDevice->Present(NULL, NULL, NULL, NULL);
 	}
+}
+
+void EnginePlayer::updateCameraTransform()
+{
+	if (!mEngine.GetMainCamera())
+	{
+		::MessageBox(nullptr, "EnginePlayer - updateCameraTransform() : No exist main camera", "Error", MB_ICONEXCLAMATION | MB_OK);
+	}
+
+	d3d::gDevice->SetTransform(D3DTS_VIEW, &mEngine.GetMainCamera()->GetViewMatrix());
+	d3d::gDevice->SetTransform(
+		D3DTS_PROJECTION,
+		&mEngine.GetMainCamera()->GetProjectionMatrix(wndplayer::gWidth, wndplayer::gHeight));
 }

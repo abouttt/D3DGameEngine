@@ -5,26 +5,26 @@
 namespace engine
 {
 	Component::Component()
-		: mGameEnginePtr(nullptr)
+		: mEnginePtr(nullptr)
 		, mGameObjectPtr(nullptr)
 		, mTransformPtr(nullptr)
 	{}
 
 	Component::~Component()
 	{
-		mGameEnginePtr = nullptr;
+		mEnginePtr = nullptr;
 		mGameObjectPtr = nullptr;
 		mTransformPtr = nullptr;
 	}
 
-	GameEngine* Component::GetGameEngine()
+	GameEngine* Component::GetEngine()
 	{
-		return mGameEnginePtr;
+		return mEnginePtr;
 	}
 
-	const GameEngine* Component::GetGameEngine() const
+	const GameEngine* Component::GetEngine() const
 	{
-		return mGameEnginePtr;
+		return mEnginePtr;
 	}
 
 	GameObject* Component::GetGameObject()

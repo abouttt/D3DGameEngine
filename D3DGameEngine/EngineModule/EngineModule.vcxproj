@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="D3DUtil.h" />
     <ClInclude Include="GameEngine.h" />
@@ -140,6 +141,7 @@
     <ClInclude Include="TransformPart.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="D3DUtil.cpp" />
     <ClCompile Include="GameEngine.cpp" />
