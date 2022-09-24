@@ -27,6 +27,18 @@
     <ClInclude Include="Timer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="TransformPart.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine.cpp">
@@ -39,6 +51,18 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformPart.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

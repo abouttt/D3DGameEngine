@@ -3,11 +3,28 @@
 #include <assert.h>
 #include <d3dx9.h>
 #include <d3dx9math.h>
+#include <cmath>
 #include <wrl.h>
 
 namespace d3d
 {
 	extern IDirect3DDevice9* gDevice;
+
+	namespace Math
+	{
+		constexpr float TwoPI = { 2.f * D3DX_PI };
+		constexpr float HalfPI = { 1.57079632679f };
+
+		D3DXVECTOR3 Vec3Multiply(const D3DXVECTOR3& v1, const D3DXVECTOR3& v2);
+		D3DXVECTOR3 Vec3Rotate(const D3DXVECTOR3& vec, const D3DXQUATERNION& quat);
+		D3DXQUATERNION EulerToQuaternion(const D3DXVECTOR3& vec);
+		D3DXVECTOR3 QuaternionToEuler(const D3DXQUATERNION& quat);
+		bool EqualsInTolerance(const float float1, const float float2, const float tolerance = (1.e-8f));
+		void GetSinCos(float* const outSin, float* const outCos, const float degree);
+		void GetSinCosRad(float* const outSin, float* const outCos, const float radian);
+		float FMod(const float x, const float y);
+		int TruncToInt(const float value);
+	}
 
 	//
 	// Create / Delete

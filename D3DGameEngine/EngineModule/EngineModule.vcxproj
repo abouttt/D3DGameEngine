@@ -130,16 +130,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Component.h" />
     <ClInclude Include="D3DUtil.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Transform.h" />
+    <ClInclude Include="TransformPart.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="D3DUtil.cpp" />
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="TransformPart.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
