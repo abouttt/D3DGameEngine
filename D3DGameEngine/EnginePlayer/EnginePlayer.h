@@ -26,6 +26,7 @@ private: //루프 함수.
 private:
 	void initRenderPipeline();
 	void updateCameraTransform();
+	void updateLights();
 
 private:
 	bool mbInit;

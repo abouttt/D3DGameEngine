@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "GameEngine.h"
 #include "GameObject.h"
+#include "Light.h"
 #include "Transform.h"
 #include "Text.h"
 
@@ -9,11 +10,14 @@ namespace engine
 {
 	GameEngine::GameEngine()
 		: mbInit(false)
+		, mLightCount(-1)
 		, mInput()
 		, mTimer()
 		, mScene()
 		, mBehaviorsPtr()
+		, mLightsPtr()
 		, mUIComponentsPtr()
+		, mBehaviorStartQueue()
 		, mMainCameraPtr(nullptr)
 	{}
 
@@ -37,7 +41,6 @@ namespace engine
 
 		mTimer.Init();
 
-
 		mbInit = true;
 		return true;
 	}
@@ -48,6 +51,7 @@ namespace engine
 		newGameObject.get()->mTransformPtr = newGameObject.get()->AddComponent<Transform>();
 		newGameObject.get()->mEnginePtr = this;
 		mScene.emplace_back(std::move(newGameObject));
+
 		return mScene.back().get();
 	}
 
@@ -63,10 +67,22 @@ namespace engine
 		return camera;
 	}
 
+	Light* GameEngine::CreateLight(const std::string& name, D3DLIGHTTYPE lightType)
+	{
+		auto newGameObject = CreateGameObject(name);
+		auto light = newGameObject->AddComponent<Light>();
+		light->SetLightType(lightType);
+		light->SetIndex(++mLightCount);
+		mLightsPtr.emplace_back(light);
+
+		return light;
+	}
+
 	Text* GameEngine::CreateText(const std::string& name)
 	{
 		auto newGameObject = CreateGameObject(name);
 		auto text = newGameObject->AddComponent<Text>();
+
 		return text;
 	}
 
@@ -108,6 +124,11 @@ namespace engine
 		return mBehaviorsPtr;
 	}
 
+	std::vector<Light*>& GameEngine::GetLights()
+	{
+		return mLightsPtr;
+	}
+
 	std::vector<UI*>& GameEngine::GetUIComponents()
 	{
 		return mUIComponentsPtr;
@@ -126,6 +147,16 @@ namespace engine
 	std::vector<Behavior*>::iterator GameEngine::BehaviorEnd()
 	{
 		return mBehaviorsPtr.end();
+	}
+
+	std::vector<Light*>::iterator GameEngine::LightBegin()
+	{
+		return mLightsPtr.begin();
+	}
+
+	std::vector<Light*>::iterator GameEngine::LightEnd()
+	{
+		return mLightsPtr.end();
 	}
 
 	std::vector<UI*>::iterator GameEngine::UIBegine()

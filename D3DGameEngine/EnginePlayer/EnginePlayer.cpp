@@ -5,6 +5,7 @@
 #include "Behavior.h"
 #include "Camera.h"
 #include "GameObject.h"
+#include "Light.h"
 #include "Transform.h"
 #include "UI.h"
 #include "Text.h"
@@ -26,12 +27,21 @@ bool EnginePlayer::Init()
 		return false;
 	}
 
+	// 다이렉트 디바이스 체크.
+	if (!d3d::gDevice)
+	{
+		::MessageBox(nullptr, "EnginePlayer - Init() : DirectX device is null", "Error", MB_ICONEXCLAMATION | MB_OK);
+		return false;
+	}
+
+	// 게임 엔진 초기화.
 	if (!mEngine.Init(wndplayer::gInstance, wndplayer::gWndHandler))
 	{
 		::MessageBox(nullptr, "EnginePlayer - Init() : GameEngine Init Failed", "Error", MB_ICONEXCLAMATION | MB_OK);
 		return false;
 	}
 
+	// 씬 오브젝트 로드.
 	loadScene();
 
 	mbInit = true;
@@ -73,6 +83,9 @@ void EnginePlayer::loadScene()
 {
 	auto camera = mEngine.CreateCamera("MainCamera");
 	camera->GetTransform()->SetPosition(D3DXVECTOR3(0.f, 0.f, 0.f));
+
+	auto light = mEngine.CreateLight("DirectionalLight");
+	light->GetTransform()->SetRotation(D3DXVECTOR3(10, -10, 10));
 
 	auto FPStext = mEngine.CreateText("FPSText");
 	FPStext->GetGameObject()->AddComponent<PerformanceText>();
@@ -119,6 +132,9 @@ void EnginePlayer::preRender()
 {
 	// 카메라.
 	updateCameraTransform();
+
+	// 라이트.
+	updateLights();
 
 	// 배경 지우기 / 렌더 시작.
 	if (d3d::gDevice)
@@ -207,4 +223,15 @@ void EnginePlayer::updateCameraTransform()
 	d3d::gDevice->SetTransform(
 		D3DTS_PROJECTION,
 		&mEngine.GetMainCamera()->GetProjectionMatrix(wndplayer::gWidth, wndplayer::gHeight));
+}
+
+void EnginePlayer::updateLights()
+{
+	for (auto light : mEngine.GetLights())
+	{
+		auto index = light->GetIndex();
+		d3d::gDevice->SetLight(index, &light->GetSource());
+		d3d::gDevice->LightEnable(index, light->GetGameObject()->IsActive());
+		light->UpdateTransform();
+	}
 }

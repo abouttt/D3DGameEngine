@@ -11,6 +11,7 @@
 namespace engine
 {
 	class Transform;
+	class Light;
 	class UI;
 
 	class GameObject
@@ -79,6 +80,10 @@ namespace engine
 			else if (std::is_base_of<UI, T>::value)
 			{
 				mEnginePtr->GetUIComponents().emplace_back((UI*)newComponent.get());
+			}
+			else if (std::is_base_of<Light, T>::value)
+			{
+				mEnginePtr->GetLights().emplace_back((Light*)newComponent.get());
 			}
 
 			mComponents.emplace_back(std::move(newComponent));
