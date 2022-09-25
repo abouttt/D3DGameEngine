@@ -48,6 +48,9 @@
     <ClInclude Include="Text.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Behavior.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine.cpp">
@@ -81,6 +84,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Text.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Behavior.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

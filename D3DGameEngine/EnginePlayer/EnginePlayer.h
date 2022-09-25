@@ -24,6 +24,7 @@ private: //루프 함수.
 	void postRender();
 
 private:
+	void initRenderPipeline();
 	void updateCameraTransform();
 
 private:

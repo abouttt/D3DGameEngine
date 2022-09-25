@@ -11,9 +11,11 @@ namespace engine
 	{
 	public:
 		Text();
+		~Text() = default;
 
 	public:
 		void SetSize(const UINT size);
+		void SetWeight(const UINT weight);
 		void SetItalic(const bool bItalic);
 		void SetColor(const D3DXCOLOR& color);
 		void SetFlag(const DWORD flag);
@@ -24,8 +26,11 @@ namespace engine
 		void Draw() override;
 
 	private:
+		bool createFontIndirect();
+
+	private:
 		Microsoft::WRL::ComPtr<ID3DXFont> mFont;
-		std::string mStr;
+		std::string mText;
 		D3DXFONT_DESC mDesc;
 		D3DXCOLOR mColor;
 		DWORD mFlag;

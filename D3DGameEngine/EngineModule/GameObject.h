@@ -6,11 +6,12 @@
 #include <string>
 
 #include "Component.h"
+#include "GameEngine.h"
 
 namespace engine
 {
 	class Transform;
-	class GameEngine;
+	class UI;
 
 	class GameObject
 	{
@@ -69,6 +70,17 @@ namespace engine
 				newComponent.get()->mEnginePtr = mEnginePtr;
 			}
 
+			// 컴포넌트 종류마다 알맞은 컴포넌트 컨테이너에 추가한다.
+			if (std::is_base_of<Behavior, T>::value)
+			{
+				mEnginePtr->GetBehaviors().emplace_back((Behavior*)newComponent.get());
+				mEnginePtr->GetBehaviorStartQueue().emplace((Behavior*)newComponent.get());
+			}
+			else if (std::is_base_of<UI, T>::value)
+			{
+				mEnginePtr->GetUIComponents().emplace_back((UI*)newComponent.get());
+			}
+
 			mComponents.emplace_back(std::move(newComponent));
 			return static_cast<T*>(mComponents.back().get());
 		}
@@ -85,15 +97,21 @@ namespace engine
 			}
 
 			// 삭제할 컴포넌트를 찾는다.
-			auto it = std::find_if(mComponents.begin(), mComponents.end(),
+			auto eraseIt = std::find_if(mComponents.begin(), mComponents.end(),
 				[](auto& component)
 				{
 					return dynamic_cast<T*>(component.get());
 				});
 
-			if (it != mComponents.end())
+			if (eraseIt != mComponents.end())
 			{
-				mComponents.erase(it);
+				if (std::is_base_of<UI, T>::value)
+				{
+					auto uiIt = std::find(mEnginePtr->UIBegine(), mEnginePtr->UIEnd(), eraseIt->get());
+					mEnginePtr->GetUIComponents().erase(uiIt);
+				}
+
+				mComponents.erase(eraseIt);
 				return true;
 			}
 

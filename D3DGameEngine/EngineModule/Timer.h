@@ -8,6 +8,7 @@ namespace engine
 	{
 	public:
 		Timer() = default;
+		~Timer() = default;
 
 	public:
 		void Init();

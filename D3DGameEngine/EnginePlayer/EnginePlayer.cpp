@@ -1,9 +1,16 @@
 #include "EnginePlayer.h"
 #include "WindowsPlayer.h"
 
+// GameObject
+#include "Behavior.h"
 #include "Camera.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "UI.h"
+#include "Text.h"
+
+// Behavior Component
+#include "PerformanceText.h"
 
 EnginePlayer::EnginePlayer()
     : mbInit(false)
@@ -66,18 +73,46 @@ void EnginePlayer::loadScene()
 {
 	auto camera = mEngine.CreateCamera("MainCamera");
 	camera->GetTransform()->SetPosition(D3DXVECTOR3(0.f, 0.f, 0.f));
+
+	auto FPStext = mEngine.CreateText("FPSText");
+	FPStext->GetGameObject()->AddComponent<PerformanceText>();
 }
 
 void EnginePlayer::start()
 {
+	while (!mEngine.GetBehaviorStartQueue().empty())
+	{
+		mEngine.GetBehaviorStartQueue().front()->Start();
+		mEngine.GetBehaviorStartQueue().pop();
+	}
 }
 
 void EnginePlayer::update()
 {
+	for (auto behavior : mEngine.GetBehaviors())
+	{
+		// 비활성화 건너뛰기.
+		if (!behavior->GetGameObject()->IsActive())
+		{
+			continue;
+		}
+
+		behavior->Update();
+	}
 }
 
 void EnginePlayer::lateUpdate()
 {
+	for (auto behavior : mEngine.GetBehaviors())
+	{
+		// 비활성화 건너뛰기.
+		if (!behavior->GetGameObject()->IsActive())
+		{
+			continue;
+		}
+
+		behavior->LateUpdate();
+	}
 }
 
 void EnginePlayer::preRender()
@@ -105,7 +140,15 @@ void EnginePlayer::renderGUI()
 {
 	if (d3d::gDevice)
 	{
+		for (auto ui : mEngine.GetUIComponents())
+		{
+			if (!ui->GetGameObject()->IsActive())
+			{
+				continue;
+			}
 
+			ui->Draw();
+		}
 	}
 }
 
@@ -117,6 +160,40 @@ void EnginePlayer::postRender()
 		d3d::gDevice->EndScene();
 		d3d::gDevice->Present(NULL, NULL, NULL, NULL);
 	}
+}
+
+void EnginePlayer::initRenderPipeline()
+{
+	IDirect3DDevice9* d3dDevice = d3d::gDevice;
+
+	// 기본.
+	d3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	d3dDevice->SetRenderState(D3DRS_ZENABLE, true);
+	d3dDevice->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
+
+	// 라이트.
+	d3dDevice->SetRenderState(D3DRS_LIGHTING, true);
+	d3dDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);	// 법선 정리.
+	d3dDevice->SetRenderState(D3DRS_SPECULARENABLE, true);		// 정반사광.	
+
+	// 텍스처 필터링.
+	d3dDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_ANISOTROPIC);
+	d3dDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_ANISOTROPIC);
+	d3dDevice->SetSamplerState(0, D3DSAMP_MAXANISOTROPY, 16);
+
+	// 밉맵
+	d3dDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_POINT);
+
+	// 셰이드 과정에서 난반사 컬러로 알파를 계산.
+	d3dDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);
+	d3dDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
+
+	// 알파 채널에서 알파를 얻는다.
+	d3dDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+	d3dDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
+
+	d3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	d3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 }
 
 void EnginePlayer::updateCameraTransform()

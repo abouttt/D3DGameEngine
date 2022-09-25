@@ -11,6 +11,7 @@ namespace engine
 			const D3DXVECTOR3& inPosition = d3d::VECTOR3_ZERO,
 			const D3DXQUATERNION& inRotation = d3d::QUATERNION_IDENTITY,
 			const D3DXVECTOR3& inScale = d3d::VECTOR3_ONE);
+		~TransformPart() = default;
 
 	public:
 		D3DXVECTOR3 GetPosition() const;
