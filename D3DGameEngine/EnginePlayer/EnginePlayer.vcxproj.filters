@@ -24,7 +24,7 @@
     <ClInclude Include="EnginePlayer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="PerformanceText.h">
+    <ClInclude Include="FPSText.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,7 +38,7 @@
     <ClCompile Include="EnginePlayer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="PerformanceText.cpp">
+    <ClCompile Include="FPSText.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

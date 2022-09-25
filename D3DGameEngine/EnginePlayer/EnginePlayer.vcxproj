@@ -133,13 +133,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EnginePlayer.h" />
-    <ClInclude Include="PerformanceText.h" />
+    <ClInclude Include="FPSText.h" />
     <ClInclude Include="WindowsPlayer.h" />
     <ClInclude Include="WindowsUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EnginePlayer.cpp" />
-    <ClCompile Include="PerformanceText.cpp" />
+    <ClCompile Include="FPSText.cpp" />
     <ClCompile Include="WindowsApp.cpp" />
     <ClCompile Include="WindowsPlayer.cpp" />
   </ItemGroup>

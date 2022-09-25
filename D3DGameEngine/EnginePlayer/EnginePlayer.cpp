@@ -11,7 +11,7 @@
 #include "Text.h"
 
 // Behavior Component
-#include "PerformanceText.h"
+#include "FPSText.h"
 
 EnginePlayer::EnginePlayer()
     : mbInit(false)
@@ -88,7 +88,7 @@ void EnginePlayer::loadScene()
 	light->GetTransform()->SetRotation(D3DXVECTOR3(10, -10, 10));
 
 	auto FPStext = mEngine.CreateText("FPSText");
-	FPStext->GetGameObject()->AddComponent<PerformanceText>();
+	FPStext->GetGameObject()->AddComponent<FPSText>();
 }
 
 void EnginePlayer::start()

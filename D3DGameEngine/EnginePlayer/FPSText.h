@@ -8,10 +8,10 @@
 
 using namespace engine;
 
-class PerformanceText : public Behavior
+class FPSText : public Behavior
 {
 public:
-	PerformanceText() = default;
+	FPSText() = default;
 
 public:
 	void Start() override
@@ -29,14 +29,14 @@ public:
 		float currentTime = GetTimer().GetElapsedTime();
 		if (currentTime - previousTimer > updatePeriod)
 		{
-			str = "FPS : " + std::to_string(GetTimer().GetFrameFPS());
+			str = "FPS : " + std::to_string(int(GetTimer().GetFrameFPS()));
 			mTextPtr->SetText(str);
 			previousTimer = currentTime;
 		}
 	}
 
 private:
-	Text* mTextPtr;
+	Text* mTextPtr = nullptr;
 	std::string str;
 };
 
