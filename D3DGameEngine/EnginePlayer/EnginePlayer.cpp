@@ -118,7 +118,11 @@ void EnginePlayer::update()
 
 	if (mEngine.GetInput().GetMouseButtonDown(0))
 	{
-		mEngine.GetGameObject("FPSText")->RemoveComponent<FPSText>();
+		auto go = mEngine.FindGameObject("FPSText");
+		if (go)
+		{
+			mEngine.RemoveGameObject(go->GetName());
+		}
 	}
 }
 

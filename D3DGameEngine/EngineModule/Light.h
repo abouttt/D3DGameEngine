@@ -12,7 +12,7 @@ namespace engine
 
 	public:
 		Light();
-		~Light();
+		~Light() = default;
 
 	public:
 		const D3DLIGHT9& GetSource() const;
@@ -30,6 +30,7 @@ namespace engine
 
 	private:
 		void addToComponentPtrContainer() override;
+		void removeFromComponentPtrContainer() override;
 
 	private:
 		D3DLIGHT9 mLight;

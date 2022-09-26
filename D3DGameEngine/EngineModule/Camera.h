@@ -9,7 +9,7 @@ namespace engine
 	{
 	public:
 		Camera();
-		~Camera() = default;
+		~Camera();
 
 	public:
 		float GetNear() const;

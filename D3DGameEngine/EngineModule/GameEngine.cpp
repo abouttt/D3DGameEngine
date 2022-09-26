@@ -13,13 +13,13 @@ namespace engine
 		, mLightCount(-1)
 		, mInput()
 		, mTimer()
+		, mMainCameraPtr(nullptr)
 		, mScene()
 		, mBehaviorsPtr()
 		, mLightsPtr()
 		, mUIsPtr()
 		, mBehaviorStartQueue()
 		, mBehaviorOnDestroyQueue()
-		, mMainCameraPtr(nullptr)
 	{}
 
 	GameEngine::~GameEngine()
@@ -73,7 +73,6 @@ namespace engine
 		auto light = newGameObject->AddComponent<Light>();
 		light->SetLightType(lightType);
 		light->SetIndex(++mLightCount);
-		mLightsPtr.emplace_back(light);
 		return light;
 	}
 
@@ -84,15 +83,15 @@ namespace engine
 		return text;
 	}
 
-	GameObject* GameEngine::GetGameObject(const std::string& name)
+	GameObject* GameEngine::FindGameObject(const std::string& name)
 	{
-		auto it = getGameObjectIter(name);
+		auto it = findGameObjectIter(name);
 		return it != mScene.end() ? (*it).get() : nullptr;
 	}
 
 	bool GameEngine::RemoveGameObject(const std::string& name)
 	{
-		auto it = getGameObjectIter(name);
+		auto it = findGameObjectIter(name);
 		if (it != mScene.end())
 		{
 			mScene.erase(it);
@@ -105,6 +104,11 @@ namespace engine
 	Camera* GameEngine::GetMainCamera()
 	{
 		return mMainCameraPtr;
+	}
+
+	void GameEngine::SetMainCamera(Camera* camera)
+	{
+		mMainCameraPtr = camera;
 	}
 
 	InputManager& GameEngine::GetInput()
@@ -172,7 +176,7 @@ namespace engine
 		return mUIsPtr.end();
 	}
 
-	std::vector<std::unique_ptr<GameObject>>::iterator GameEngine::getGameObjectIter(const std::string& name)
+	std::vector<std::unique_ptr<GameObject>>::iterator GameEngine::findGameObjectIter(const std::string& name)
 	{
 		return std::find_if(mScene.begin(), mScene.end(),
 			[&](auto& gameObject)

@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "GameEngine.h"
 #include "Transform.h"
 
 namespace engine
@@ -10,6 +11,14 @@ namespace engine
 		, mViewMatrix()
 		, mProjMatrix()
 	{}
+
+	Camera::~Camera()
+	{
+		if (GetEngine()->GetMainCamera() == this)
+		{
+			GetEngine()->SetMainCamera(nullptr);
+		}
+	}
 
 	float Camera::GetNear() const
 	{

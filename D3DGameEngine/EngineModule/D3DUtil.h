@@ -12,6 +12,7 @@ namespace d3d
 
 	namespace Math
 	{
+		constexpr float PI = D3DX_PI;
 		constexpr float TwoPI = { 2.f * D3DX_PI };
 		constexpr float HalfPI = { 1.57079632679f };
 

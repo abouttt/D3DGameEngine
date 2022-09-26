@@ -98,11 +98,8 @@ namespace engine
 
 			if (eraseIt != mComponents.end())
 			{
-				if (std::is_base_of<Behavior, T>::value)
-				{
-					auto temp = std::static_pointer_cast<Behavior>(*eraseIt);
-					GetEngine()->GetBehaviorOnDestroyQueue().emplace(std::move(temp));
-				}
+				// 컴포넌트 종류마다 알맞은 컴포넌트 컨테이너에서 제거한다.
+				(*eraseIt)->removeFromComponentPtrContainer();
 
 				mComponents.erase(eraseIt);
 				return true;

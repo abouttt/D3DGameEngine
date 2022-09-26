@@ -13,13 +13,14 @@ namespace engine
 
 	public:
 		UI() = default;
-		virtual ~UI();
+		virtual ~UI() = default;
 
 	public:
 		virtual void Draw() = 0;
 
 	private:
 		void addToComponentPtrContainer() override;
+		void removeFromComponentPtrContainer() override;
 	};
 }
 

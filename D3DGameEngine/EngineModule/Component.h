@@ -29,6 +29,7 @@ namespace engine
 
 	private:
 		virtual void addToComponentPtrContainer() {}
+		virtual void removeFromComponentPtrContainer() {}
 
 	private:
 		GameEngine* mEnginePtr;

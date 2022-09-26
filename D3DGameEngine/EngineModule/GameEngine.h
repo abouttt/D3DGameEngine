@@ -4,7 +4,6 @@
 #include <memory>
 #include <vector>
 #include <string>
-#include <functional>
 #include <queue>
 
 #include "D3DUtil.h"
@@ -35,10 +34,11 @@ namespace engine
 		Light* CreateLight(const std::string& name, D3DLIGHTTYPE lightType = D3DLIGHT_DIRECTIONAL);
 		Text* CreateText(const std::string& name);
 
-		GameObject* GetGameObject(const std::string& name);
+		GameObject* FindGameObject(const std::string& name);
 		bool RemoveGameObject(const std::string& name);
 
 		Camera* GetMainCamera();
+		void SetMainCamera(Camera* camera);
 
 	public: // À¯Æ¿.
 		InputManager& GetInput();
@@ -62,7 +62,7 @@ namespace engine
 		std::vector<UI*>::iterator UIEnd();
 
 	private:
-		std::vector<std::unique_ptr<GameObject>>::iterator getGameObjectIter(const std::string& name);
+		std::vector<std::unique_ptr<GameObject>>::iterator findGameObjectIter(const std::string& name);
 
 	private:
 		bool mbInit;
@@ -71,6 +71,8 @@ namespace engine
 		InputManager mInput;
 		Timer mTimer;
 
+		Camera* mMainCameraPtr;
+
 		std::vector<std::unique_ptr<GameObject>> mScene;
 		std::vector<Behavior*> mBehaviorsPtr;
 		std::vector<Light*> mLightsPtr;
@@ -78,7 +80,5 @@ namespace engine
 
 		std::queue<Behavior*> mBehaviorStartQueue;
 		std::queue<std::shared_ptr<Behavior>> mBehaviorOnDestroyQueue;
-
-		Camera* mMainCameraPtr;
 	};
 }

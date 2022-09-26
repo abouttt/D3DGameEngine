@@ -13,15 +13,6 @@ namespace engine
 		SetColor(d3d::WHITE);
 	}
 
-	Light::~Light()
-	{
-		auto it = find(GetEngine()->LightBegin(), GetEngine()->LightEnd(), this);
-		if (it != GetEngine()->LightEnd())
-		{
-			GetEngine()->GetLights().erase(it);
-		}
-	}
-
 	const D3DLIGHT9& Light::GetSource() const
 	{
 		return mLight;
@@ -107,5 +98,14 @@ namespace engine
 	void Light::addToComponentPtrContainer()
 	{
 		GetEngine()->GetLights().emplace_back(this);
+	}
+
+	void Light::removeFromComponentPtrContainer()
+	{
+		auto it = find(GetEngine()->LightBegin(), GetEngine()->LightEnd(), this);
+		if (it != GetEngine()->LightEnd())
+		{
+			GetEngine()->GetLights().erase(it);
+		}
 	}
 }
