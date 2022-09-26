@@ -16,8 +16,9 @@ namespace engine
 		, mScene()
 		, mBehaviorsPtr()
 		, mLightsPtr()
-		, mUIComponentsPtr()
+		, mUIsPtr()
 		, mBehaviorStartQueue()
+		, mBehaviorOnDestroyQueue()
 		, mMainCameraPtr(nullptr)
 	{}
 
@@ -51,7 +52,6 @@ namespace engine
 		newGameObject.get()->mTransformPtr = newGameObject.get()->AddComponent<Transform>();
 		newGameObject.get()->mEnginePtr = this;
 		mScene.emplace_back(std::move(newGameObject));
-
 		return mScene.back().get();
 	}
 
@@ -74,7 +74,6 @@ namespace engine
 		light->SetLightType(lightType);
 		light->SetIndex(++mLightCount);
 		mLightsPtr.emplace_back(light);
-
 		return light;
 	}
 
@@ -82,7 +81,6 @@ namespace engine
 	{
 		auto newGameObject = CreateGameObject(name);
 		auto text = newGameObject->AddComponent<Text>();
-
 		return text;
 	}
 
@@ -129,9 +127,9 @@ namespace engine
 		return mLightsPtr;
 	}
 
-	std::vector<UI*>& GameEngine::GetUIComponents()
+	std::vector<UI*>& GameEngine::GetUIs()
 	{
-		return mUIComponentsPtr;
+		return mUIsPtr;
 	}
 
 	std::queue<Behavior*>& GameEngine::GetBehaviorStartQueue()
@@ -139,7 +137,12 @@ namespace engine
 		return mBehaviorStartQueue;
 	}
 
-	std::vector<Behavior*>::iterator GameEngine::BehaviorBegine()
+	std::queue<std::shared_ptr<Behavior>>& GameEngine::GetBehaviorOnDestroyQueue()
+	{
+		return mBehaviorOnDestroyQueue;
+	}
+
+	std::vector<Behavior*>::iterator GameEngine::BehaviorBegin()
 	{
 		return mBehaviorsPtr.begin();
 	}
@@ -159,14 +162,14 @@ namespace engine
 		return mLightsPtr.end();
 	}
 
-	std::vector<UI*>::iterator GameEngine::UIBegine()
+	std::vector<UI*>::iterator GameEngine::UIBegin()
 	{
-		return mUIComponentsPtr.begin();
+		return mUIsPtr.begin();
 	}
 
 	std::vector<UI*>::iterator GameEngine::UIEnd()
 	{
-		return mUIComponentsPtr.end();
+		return mUIsPtr.end();
 	}
 
 	std::vector<std::unique_ptr<GameObject>>::iterator GameEngine::getGameObjectIter(const std::string& name)

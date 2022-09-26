@@ -12,13 +12,17 @@ namespace engine
 	class Behavior : public Component
 	{
 	public:
+		friend class GameObject;
+
+	public:
 		Behavior() = default;
-		virtual ~Behavior() = default;
+		virtual ~Behavior();
 
 	public: // 이벤트 함수.
 		virtual void Start() {}
 		virtual void Update() {}
 		virtual void LateUpdate() {}
+		virtual void OnDestroy() {}
 
 	public:
 		Timer& GetTimer();
@@ -30,6 +34,9 @@ namespace engine
 		{
 			return GetGameObject()->GetComponent<T>();
 		}
+
+	private:
+		void addToComponentPtrContainer() override;
 	};
 }
 

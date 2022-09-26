@@ -60,7 +60,7 @@ namespace engine
 		{
 			static_assert(std::is_base_of<Component, T>::value);
 
-			auto newComponent = std::make_unique<T>(std::forward<Args>(args)...);
+			auto newComponent = std::make_shared<T>(std::forward<Args>(args)...);
 			newComponent.get()->mGameObjectPtr = this;
 			if (mTransformPtr)
 			{
@@ -72,19 +72,7 @@ namespace engine
 			}
 
 			// 컴포넌트 종류마다 알맞은 컴포넌트 컨테이너에 추가한다.
-			if (std::is_base_of<Behavior, T>::value)
-			{
-				mEnginePtr->GetBehaviors().emplace_back((Behavior*)newComponent.get());
-				mEnginePtr->GetBehaviorStartQueue().emplace((Behavior*)newComponent.get());
-			}
-			else if (std::is_base_of<UI, T>::value)
-			{
-				mEnginePtr->GetUIComponents().emplace_back((UI*)newComponent.get());
-			}
-			else if (std::is_base_of<Light, T>::value)
-			{
-				mEnginePtr->GetLights().emplace_back((Light*)newComponent.get());
-			}
+			newComponent.get()->addToComponentPtrContainer();
 
 			mComponents.emplace_back(std::move(newComponent));
 			return static_cast<T*>(mComponents.back().get());
@@ -110,10 +98,10 @@ namespace engine
 
 			if (eraseIt != mComponents.end())
 			{
-				if (std::is_base_of<UI, T>::value)
+				if (std::is_base_of<Behavior, T>::value)
 				{
-					auto uiIt = std::find(mEnginePtr->UIBegine(), mEnginePtr->UIEnd(), eraseIt->get());
-					mEnginePtr->GetUIComponents().erase(uiIt);
+					auto temp = std::static_pointer_cast<Behavior>(*eraseIt);
+					GetEngine()->GetBehaviorOnDestroyQueue().emplace(std::move(temp));
 				}
 
 				mComponents.erase(eraseIt);
@@ -126,7 +114,7 @@ namespace engine
 	private:
 		bool mbActive;
 		std::string mName;
-		std::vector<std::unique_ptr<Component>> mComponents;
+		std::vector<std::shared_ptr<Component>> mComponents;
 		Transform* mTransformPtr;
 		GameEngine* mEnginePtr;
 	};

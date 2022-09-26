@@ -47,17 +47,18 @@ namespace engine
 	public: // 동적 생성된 컴포넌트.
 		std::vector<Behavior*>& GetBehaviors();
 		std::vector<Light*>& GetLights();
-		std::vector<UI*>& GetUIComponents();
+		std::vector<UI*>& GetUIs();
 
 		std::queue<Behavior*>& GetBehaviorStartQueue();
+		std::queue<std::shared_ptr<Behavior>>& GetBehaviorOnDestroyQueue();
 
-		std::vector<Behavior*>::iterator BehaviorBegine();
+		std::vector<Behavior*>::iterator BehaviorBegin();
 		std::vector<Behavior*>::iterator BehaviorEnd();
 
 		std::vector<Light*>::iterator LightBegin();
 		std::vector<Light*>::iterator LightEnd();
 
-		std::vector<UI*>::iterator UIBegine();
+		std::vector<UI*>::iterator UIBegin();
 		std::vector<UI*>::iterator UIEnd();
 
 	private:
@@ -73,9 +74,10 @@ namespace engine
 		std::vector<std::unique_ptr<GameObject>> mScene;
 		std::vector<Behavior*> mBehaviorsPtr;
 		std::vector<Light*> mLightsPtr;
-		std::vector<UI*> mUIComponentsPtr;
+		std::vector<UI*> mUIsPtr;
 
 		std::queue<Behavior*> mBehaviorStartQueue;
+		std::queue<std::shared_ptr<Behavior>> mBehaviorOnDestroyQueue;
 
 		Camera* mMainCameraPtr;
 	};

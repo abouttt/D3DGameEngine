@@ -22,6 +22,7 @@ private: //루프 함수.
 	void render();
 	void renderGUI();
 	void postRender();
+	void onDestroy();
 
 private:
 	void initRenderPipeline();

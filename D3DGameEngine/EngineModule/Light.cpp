@@ -1,5 +1,6 @@
 #include "Light.h"
 #include "Transform.h"
+#include "GameEngine.h"
 
 namespace engine
 {
@@ -10,6 +11,15 @@ namespace engine
 		::ZeroMemory(&mLight, sizeof(D3DLIGHT9));
 		initDirectionLight();
 		SetColor(d3d::WHITE);
+	}
+
+	Light::~Light()
+	{
+		auto it = find(GetEngine()->LightBegin(), GetEngine()->LightEnd(), this);
+		if (it != GetEngine()->LightEnd())
+		{
+			GetEngine()->GetLights().erase(it);
+		}
 	}
 
 	const D3DLIGHT9& Light::GetSource() const
@@ -92,5 +102,10 @@ namespace engine
 		mLight.Attenuation2 = 0.0f;
 		mLight.Theta = 0.5f;
 		mLight.Phi = 0.7f;
+	}
+
+	void Light::addToComponentPtrContainer()
+	{
+		GetEngine()->GetLights().emplace_back(this);
 	}
 }

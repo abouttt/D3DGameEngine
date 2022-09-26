@@ -8,8 +8,11 @@ namespace engine
 	class Light : public Component
 	{
 	public:
+		friend class GameObject;
+
+	public:
 		Light();
-		~Light() = default;
+		~Light();
 
 	public:
 		const D3DLIGHT9& GetSource() const;
@@ -24,6 +27,9 @@ namespace engine
 		void initDirectionLight();
 		void initPointLight();
 		void initSpotLight();
+
+	private:
+		void addToComponentPtrContainer() override;
 
 	private:
 		D3DLIGHT9 mLight;

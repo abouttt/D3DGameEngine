@@ -35,6 +35,11 @@ public:
 		}
 	}
 
+	void OnDestroy() override
+	{
+		::MessageBox(nullptr, "OnDestroy()", ".", MB_ICONEXCLAMATION | MB_OK);
+	}
+
 private:
 	Text* mTextPtr = nullptr;
 	std::string str;

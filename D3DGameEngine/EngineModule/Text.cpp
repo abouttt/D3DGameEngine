@@ -75,7 +75,7 @@ namespace engine
 		RECT rect;
 		rect.left = static_cast<LONG>(pos.x);
 		rect.top = static_cast<LONG>(pos.y);
-		mFont->DrawText(nullptr, mText.c_str(), _TRUNCATE, &rect, DT_NOCLIP | mFlag, mColor);
+		mFont->DrawTextA(nullptr, mText.c_str(), -1, &rect, DT_NOCLIP | mFlag, mColor);
 	}
 
 	bool Text::createFontIndirect()

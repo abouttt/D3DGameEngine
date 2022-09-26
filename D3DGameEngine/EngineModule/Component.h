@@ -28,6 +28,9 @@ namespace engine
 		const Transform* GetTransform() const;
 
 	private:
+		virtual void addToComponentPtrContainer() {}
+
+	private:
 		GameEngine* mEnginePtr;
 		GameObject* mGameObjectPtr;
 		Transform* mTransformPtr;

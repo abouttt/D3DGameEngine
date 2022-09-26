@@ -75,6 +75,9 @@ void EnginePlayer::OnTick()
 	renderGUI();
 	postRender();
 
+	// Decommissioning
+	onDestroy();
+
 	// 성능 측정 종료.
 	mEngine.GetTimer().EndTimer();
 }
@@ -111,6 +114,11 @@ void EnginePlayer::update()
 		}
 
 		behavior->Update();
+	}
+
+	if (mEngine.GetInput().GetMouseButtonDown(0))
+	{
+		mEngine.GetGameObject("FPSText")->RemoveComponent<FPSText>();
 	}
 }
 
@@ -156,7 +164,7 @@ void EnginePlayer::renderGUI()
 {
 	if (d3d::gDevice)
 	{
-		for (auto ui : mEngine.GetUIComponents())
+		for (auto ui : mEngine.GetUIs())
 		{
 			if (!ui->GetGameObject()->IsActive())
 			{
@@ -175,6 +183,15 @@ void EnginePlayer::postRender()
 	{
 		d3d::gDevice->EndScene();
 		d3d::gDevice->Present(NULL, NULL, NULL, NULL);
+	}
+}
+
+void EnginePlayer::onDestroy()
+{
+	while (!mEngine.GetBehaviorOnDestroyQueue().empty())
+	{
+		mEngine.GetBehaviorOnDestroyQueue().front()->OnDestroy();
+		mEngine.GetBehaviorOnDestroyQueue().pop();
 	}
 }
 
