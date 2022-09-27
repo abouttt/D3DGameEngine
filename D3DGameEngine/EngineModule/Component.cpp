@@ -5,7 +5,8 @@
 namespace engine
 {
 	Component::Component()
-		: mEnginePtr(nullptr)
+		: mbActive(true)
+		, mEnginePtr(nullptr)
 		, mGameObjectPtr(nullptr)
 		, mTransformPtr(nullptr)
 	{}
@@ -15,6 +16,22 @@ namespace engine
 		mEnginePtr = nullptr;
 		mGameObjectPtr = nullptr;
 		mTransformPtr = nullptr;
+	}
+
+	bool Component::IsActive() const
+	{
+		return mbActive;
+	}
+
+	void Component::SetActive(bool bActive)
+	{
+		// 현재 상태와 매개변수 상태가 같다면 진행하지 않는다.
+		if (mbActive == bActive)
+		{
+			return;
+		}
+
+		mbActive = bActive;
 	}
 
 	GameEngine* Component::GetEngine()

@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "Behavior.h"
 
 namespace engine
 {
@@ -23,7 +24,7 @@ namespace engine
 		// 컴포넌트 종류마다 알맞은 컴포넌트 컨테이너에서 제거한다.
 		for (auto& component : mComponents)
 		{
-			component->removeFromComponentPtrContainer();
+			component->removeFromEventContainer();
 		}
 
 		mTransformPtr = nullptr;
@@ -37,6 +38,33 @@ namespace engine
 
 	void GameObject::SetActive(const bool bActive)
 	{
+		// 현재 상태와 매개변수 상태가 같다면 진행하지 않는다.
+		if (mbActive == bActive)
+		{
+			return;
+		}
+
+		for (auto& component : mComponents)
+		{
+			auto behavior = dynamic_cast<Behavior*>(component.get());
+			if (behavior)
+			{
+				if (!behavior->IsActive())
+				{
+					continue;
+				}
+
+				if (bActive)
+				{
+					GetEngine()->GetBehaviorOnEnableQueue().emplace(behavior);
+				}
+				else
+				{
+					GetEngine()->GetBehaviorOnDisableQueue().emplace(behavior);
+				}
+			}
+		}
+
 		mbActive = bActive;
 	}
 

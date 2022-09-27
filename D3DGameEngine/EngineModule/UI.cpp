@@ -3,12 +3,12 @@
 
 namespace engine 
 {
-    void UI::addToComponentPtrContainer()
+    void UI::addToEventContainer()
     {
         GetEngine()->GetUIs().emplace_back(this);
     }
 
-    void UI::removeFromComponentPtrContainer()
+    void UI::removeFromEventContainer()
     {
         auto it = std::find(GetEngine()->UIBegin(), GetEngine()->UIEnd(), this);
         if (it != GetEngine()->UIEnd())

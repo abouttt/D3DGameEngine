@@ -60,6 +60,8 @@ void EnginePlayer::OnTick()
 	mEngine.GetTimer().BeginTimer();
 
 	// Initialization
+	awake();
+	onEnable();
 	start();
 
 	// Input Event
@@ -76,6 +78,7 @@ void EnginePlayer::OnTick()
 	postRender();
 
 	// Decommissioning
+	onDisable();
 	onDestroy();
 
 	// 성능 측정 종료.
@@ -94,12 +97,50 @@ void EnginePlayer::loadScene()
 	FPStext->GetGameObject()->AddComponent<FPSText>();
 }
 
+void EnginePlayer::awake()
+{
+	while (!mEngine.GetBehaviorAwakeQueue().empty())
+	{
+		auto behavior = mEngine.GetBehaviorAwakeQueue().front();
+		mEngine.GetBehaviorAwakeQueue().pop();
+		behavior->Awake();
+	}
+}
+
+void EnginePlayer::onEnable()
+{
+	while (!mEngine.GetBehaviorOnEnableQueue().empty())
+	{
+		auto behavior = mEngine.GetBehaviorOnEnableQueue().front();
+		mEngine.GetBehaviorOnEnableQueue().pop();
+		behavior->OnEnable();
+	}
+}
+
 void EnginePlayer::start()
 {
+	// 비활성화 상태라면 다시 큐에 삽입한다. 아니라면 이벤트 호출.
+
+	std::vector<Behavior*> noActiveBehaviors;
+
 	while (!mEngine.GetBehaviorStartQueue().empty())
 	{
-		mEngine.GetBehaviorStartQueue().front()->Start();
+		auto behavior = mEngine.GetBehaviorStartQueue().front();
 		mEngine.GetBehaviorStartQueue().pop();
+
+		if (behavior->IsActive())
+		{
+			behavior->Start();
+		}
+		else
+		{
+			noActiveBehaviors.emplace_back(behavior);
+		}
+	}
+
+	for (auto behavior : noActiveBehaviors)
+	{
+		mEngine.GetBehaviorStartQueue().emplace(behavior);
 	}
 }
 
@@ -113,6 +154,11 @@ void EnginePlayer::update()
 			continue;
 		}
 
+		if (!behavior->IsActive())
+		{
+			continue;
+		}
+
 		behavior->Update();
 	}
 
@@ -121,7 +167,12 @@ void EnginePlayer::update()
 		auto go = mEngine.FindGameObject("FPSText");
 		if (go)
 		{
-			mEngine.RemoveGameObject(go->GetName());
+			//mEngine.RemoveGameObject(go->GetName());
+			//go->GetComponent<FPSText>()->SetActive(false);
+			if (go->GetComponent<FPSText>()->IsActive())
+				go->GetComponent<FPSText>()->SetActive(false);
+			else
+				go->GetComponent<FPSText>()->SetActive(true);
 		}
 	}
 }
@@ -132,6 +183,11 @@ void EnginePlayer::lateUpdate()
 	{
 		// 비활성화 건너뛰기.
 		if (!behavior->GetGameObject()->IsActive())
+		{
+			continue;
+		}
+
+		if (!behavior->IsActive())
 		{
 			continue;
 		}
@@ -170,7 +226,13 @@ void EnginePlayer::renderGUI()
 	{
 		for (auto ui : mEngine.GetUIs())
 		{
+			// 비활성화 건너뛰기.
 			if (!ui->GetGameObject()->IsActive())
+			{
+				continue;
+			}
+
+			if (!ui->IsActive())
 			{
 				continue;
 			}
@@ -190,11 +252,23 @@ void EnginePlayer::postRender()
 	}
 }
 
+void EnginePlayer::onDisable()
+{
+	while (!mEngine.GetBehaviorOnDisableQueue().empty())
+	{
+		auto behavior = mEngine.GetBehaviorOnDisableQueue().front();
+		mEngine.GetBehaviorOnDisableQueue().pop();
+		behavior->OnDisable();
+	}
+}
+
 void EnginePlayer::onDestroy()
 {
 	while (!mEngine.GetBehaviorOnDestroyQueue().empty())
 	{
-		mEngine.GetBehaviorOnDestroyQueue().front()->OnDestroy();
+		auto behavior = mEngine.GetBehaviorOnDestroyQueue().front();
+		behavior->OnDisable();
+		behavior->OnDestroy();
 		mEngine.GetBehaviorOnDestroyQueue().pop();
 	}
 }

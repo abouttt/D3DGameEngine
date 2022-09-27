@@ -18,6 +18,10 @@ namespace engine
 		virtual ~Component();
 
 	public:
+		virtual bool IsActive() const;
+		virtual void SetActive(bool bActive);
+
+	public:
 		GameEngine* GetEngine();
 		const GameEngine* GetEngine() const;
 
@@ -28,10 +32,12 @@ namespace engine
 		const Transform* GetTransform() const;
 
 	private:
-		virtual void addToComponentPtrContainer() {}
-		virtual void removeFromComponentPtrContainer() {}
+		virtual void addToEventContainer() {}
+		virtual void removeFromEventContainer() {}
 
 	private:
+		bool mbActive;
+
 		GameEngine* mEnginePtr;
 		GameObject* mGameObjectPtr;
 		Transform* mTransformPtr;

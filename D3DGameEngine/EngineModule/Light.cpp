@@ -95,12 +95,12 @@ namespace engine
 		mLight.Phi = 0.7f;
 	}
 
-	void Light::addToComponentPtrContainer()
+	void Light::addToEventContainer()
 	{
 		GetEngine()->GetLights().emplace_back(this);
 	}
 
-	void Light::removeFromComponentPtrContainer()
+	void Light::removeFromEventContainer()
 	{
 		auto it = find(GetEngine()->LightBegin(), GetEngine()->LightEnd(), this);
 		if (it != GetEngine()->LightEnd())

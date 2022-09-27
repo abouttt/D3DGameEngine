@@ -13,8 +13,12 @@ public:
 	// 윈도우 이벤트 처리.
 	void OnTick();
 
-private: //루프 함수.
+private: 
 	void loadScene();
+
+private: //루프 함수.
+	void awake();
+	void onEnable();
 	void start();
 	void update();
 	void lateUpdate();
@@ -22,6 +26,7 @@ private: //루프 함수.
 	void render();
 	void renderGUI();
 	void postRender();
+	void onDisable();
 	void onDestroy();
 
 private:

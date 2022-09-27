@@ -29,8 +29,8 @@ namespace engine
 		void initSpotLight();
 
 	private:
-		void addToComponentPtrContainer() override;
-		void removeFromComponentPtrContainer() override;
+		void addToEventContainer() override;
+		void removeFromEventContainer() override;
 
 	private:
 		D3DLIGHT9 mLight;

@@ -19,8 +19,8 @@ namespace engine
 		virtual void Draw() = 0;
 
 	private:
-		void addToComponentPtrContainer() override;
-		void removeFromComponentPtrContainer() override;
+		void addToEventContainer() override;
+		void removeFromEventContainer() override;
 	};
 }
 

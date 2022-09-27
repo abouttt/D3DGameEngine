@@ -18,7 +18,10 @@ namespace engine
 		, mBehaviorsPtr()
 		, mLightsPtr()
 		, mUIsPtr()
+		, mBehaviorAwakeQueue()
+		, mBehaviorOnEnableQueue()
 		, mBehaviorStartQueue()
+		, mBehaviorOnDisableQueue()
 		, mBehaviorOnDestroyQueue()
 	{}
 
@@ -136,9 +139,24 @@ namespace engine
 		return mUIsPtr;
 	}
 
+	std::queue<Behavior*>& GameEngine::GetBehaviorAwakeQueue()
+	{
+		return mBehaviorAwakeQueue;
+	}
+
+	std::queue<Behavior*>& GameEngine::GetBehaviorOnEnableQueue()
+	{
+		return mBehaviorOnEnableQueue;
+	}
+
 	std::queue<Behavior*>& GameEngine::GetBehaviorStartQueue()
 	{
 		return mBehaviorStartQueue;
+	}
+
+	std::queue<Behavior*>& GameEngine::GetBehaviorOnDisableQueue()
+	{
+		return mBehaviorOnDisableQueue;
 	}
 
 	std::queue<std::shared_ptr<Behavior>>& GameEngine::GetBehaviorOnDestroyQueue()

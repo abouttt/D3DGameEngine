@@ -72,7 +72,7 @@ namespace engine
 			}
 
 			// 컴포넌트 종류마다 알맞은 컴포넌트 컨테이너에 추가한다.
-			newComponent.get()->addToComponentPtrContainer();
+			newComponent.get()->addToEventContainer();
 
 			mComponents.emplace_back(std::move(newComponent));
 			return static_cast<T*>(mComponents.back().get());
@@ -99,7 +99,7 @@ namespace engine
 			if (eraseIt != mComponents.end())
 			{
 				// 컴포넌트 종류마다 알맞은 컴포넌트 컨테이너에서 제거한다.
-				(*eraseIt)->removeFromComponentPtrContainer();
+				(*eraseIt)->removeFromEventContainer();
 
 				mComponents.erase(eraseIt);
 				return true;

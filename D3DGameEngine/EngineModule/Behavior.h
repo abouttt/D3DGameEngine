@@ -23,10 +23,16 @@ namespace engine
 		Behavior() = default;
 		virtual ~Behavior() = default;
 
+	public:
+		void SetActive(bool bActive) override;
+
 	public: // 이벤트 함수.
+		virtual void Awake() {}
+		virtual void OnEnable() {}
 		virtual void Start() {}
 		virtual void Update() {}
 		virtual void LateUpdate() {}
+		virtual void OnDisable() {}
 		virtual void OnDestroy() {}
 
 	public:
@@ -41,8 +47,8 @@ namespace engine
 		}
 
 	private:
-		void addToComponentPtrContainer() override;
-		void removeFromComponentPtrContainer() override;
+		void addToEventContainer() override;
+		void removeFromEventContainer() override;
 	};
 }
 

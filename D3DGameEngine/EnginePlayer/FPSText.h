@@ -14,8 +14,20 @@ public:
 	FPSText() = default;
 
 public:
+	void Awake() override
+	{
+		::MessageBox(nullptr, "Awake()", ".", MB_ICONEXCLAMATION | MB_OK);
+	}
+
+	void OnEnable() override
+	{
+		::MessageBox(nullptr, "OnEnable()", ".", MB_ICONEXCLAMATION | MB_OK);
+	}
+
 	void Start() override
 	{
+		::MessageBox(nullptr, "Start()", ".", MB_ICONEXCLAMATION | MB_OK);
+
 		mTextPtr = GetComponent<Text>();
 		mTextPtr->SetColor(d3d::GREEN);
 		mTextPtr->SetSize(15);
@@ -33,6 +45,11 @@ public:
 			mTextPtr->SetText(str);
 			previousTimer = currentTime;
 		}
+	}
+
+	void OnDisable() override
+	{
+		::MessageBox(nullptr, "OnDisable()", ".", MB_ICONEXCLAMATION | MB_OK);
 	}
 
 	void OnDestroy() override

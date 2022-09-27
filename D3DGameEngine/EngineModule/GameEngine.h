@@ -49,7 +49,10 @@ namespace engine
 		std::vector<Light*>& GetLights();
 		std::vector<UI*>& GetUIs();
 
+		std::queue<Behavior*>& GetBehaviorAwakeQueue();
+		std::queue<Behavior*>& GetBehaviorOnEnableQueue();
 		std::queue<Behavior*>& GetBehaviorStartQueue();
+		std::queue<Behavior*>& GetBehaviorOnDisableQueue();
 		std::queue<std::shared_ptr<Behavior>>& GetBehaviorOnDestroyQueue();
 
 		std::vector<Behavior*>::iterator BehaviorBegin();
@@ -78,7 +81,10 @@ namespace engine
 		std::vector<Light*> mLightsPtr;
 		std::vector<UI*> mUIsPtr;
 
+		std::queue<Behavior*> mBehaviorAwakeQueue;
+		std::queue<Behavior*> mBehaviorOnEnableQueue;
 		std::queue<Behavior*> mBehaviorStartQueue;
+		std::queue<Behavior*> mBehaviorOnDisableQueue;
 		std::queue<std::shared_ptr<Behavior>> mBehaviorOnDestroyQueue;
 	};
 }
