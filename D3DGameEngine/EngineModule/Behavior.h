@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "Component.h"
+#include "D3DUtil.h"
 #include "GameEngine.h"
 #include "GameObject.h"
 #include "InputManager.h"

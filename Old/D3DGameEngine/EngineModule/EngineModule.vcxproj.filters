@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{9b3591f9-97cb-4e98-bfb3-33106400f5cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Public">
+      <UniqueIdentifier>{db02444d-8553-4752-80d1-82a8315c1879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Private">
+      <UniqueIdentifier>{6324348b-40b5-4064-81a1-8e57a97132df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{b79aaf48-313d-4669-8807-feb8d691fdde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Public">
+      <UniqueIdentifier>{c16da625-e0fd-41ef-b726-4a6cb2c85ba8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Private">
+      <UniqueIdentifier>{0bc3f1d2-b33a-4d42-9ae9-a14b1747e00e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{d8bb57ec-c734-4f41-930c-1ab698288797}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\Public">
+      <UniqueIdentifier>{75e8dc3d-c88e-4715-bba5-3379a2b78e11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\Private">
+      <UniqueIdentifier>{2ea05efe-dfb0-4e1c-b486-17173f721418}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Component.cpp">
+      <Filter>GameObject\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameObject\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>GameObject\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine.cpp">
+      <Filter>Engine\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DUtil.cpp">
+      <Filter>Utils\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshFilter.cpp">
+      <Filter>GameObject\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderer.cpp">
+      <Filter>GameObject\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>GameObject\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Engine\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Engine\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineUtil.cpp">
+      <Filter>Utils\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformPart.cpp">
+      <Filter>GameObject\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>GameObject\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>GameObject\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Behavior.cpp">
+      <Filter>GameObject\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>GameObject\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>GameObject\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>GameObject\Private</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Component.h">
+      <Filter>GameObject\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameObject\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>GameObject\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine.h">
+      <Filter>Engine\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DUtil.h">
+      <Filter>Utils\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshFilter.h">
+      <Filter>GameObject\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderer.h">
+      <Filter>GameObject\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>GameObject\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Engine\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Engine\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineUtil.h">
+      <Filter>Utils\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformPart.h">
+      <Filter>GameObject\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>GameObject\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>GameObject\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Behavior.h">
+      <Filter>GameObject\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>GameObject\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>GameObject\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>GameObject\Public</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Public">
+      <UniqueIdentifier>{0f0659c8-3d24-4603-82df-47503ceb3e9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private">
+      <UniqueIdentifier>{4a97ba12-c8ac-4ecf-9c2f-519d69259501}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{c5980c4b-cc2d-4f61-bd64-3937984fd853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Public">
+      <UniqueIdentifier>{cffba23f-b12c-4128-97ca-d339072d56e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Private">
+      <UniqueIdentifier>{24035d22-9962-43e8-8279-3c56167f499a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WindowsPlayer.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsUtil.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="EnginePlayer.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraController.h">
+      <Filter>Game\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="PerformanceText.h">
+      <Filter>Game\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotator.h">
+      <Filter>Game\Public</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WindowsApp.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsPlayer.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="EnginePlayer.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraController.cpp">
+      <Filter>Game\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="PerformanceText.cpp">
+      <Filter>Game\Private</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

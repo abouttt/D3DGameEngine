@@ -13,17 +13,13 @@ namespace engine
 
 	public:
 		Component();
-		Component(const Component& other) = delete;
-		Component operator=(const Component& other) = delete;
+		Component(const Component& inOther) = delete;
+		Component operator=(const Component& inOther) = delete;
 		virtual ~Component();
 
 	public:
-		virtual bool IsActive() const;
-		virtual void SetActive(bool bActive);
-
-	public:
-		GameEngine* GetEngine();
-		const GameEngine* GetEngine() const;
+		GameEngine* GetGameEngine();
+		const GameEngine* GetGameEngine() const;
 
 		GameObject* GetGameObject();
 		const GameObject* GetGameObject() const;
@@ -32,12 +28,7 @@ namespace engine
 		const Transform* GetTransform() const;
 
 	private:
-		virtual void addToEventContainer() {}
-		virtual void removeFromEventContainer() {}
-
-	private:
-		bool mbActive;
-		GameEngine* mEnginePtr;
+		GameEngine* mGameEnginePtr;
 		GameObject* mGameObjectPtr;
 		Transform* mTransformPtr;
 	};
